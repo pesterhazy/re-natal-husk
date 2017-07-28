@@ -85,15 +85,17 @@ fi
 
 BUNDLE_FILE="$DEST/main.jsbundle"
 
-# $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
-#   --entry-file "${ENTRY_FILE}.husk.js" \
-#   --platform ios \
-#   --dev $DEV \
-#   --reset-cache \
-#   --bundle-output "/tmp/mytemp.js" \
-#   --assets-dest "$DEST"
+$NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
+  --entry-file "${ENTRY_FILE}.husk.js" \
+  --platform ios \
+  --dev $DEV \
+  --reset-cache \
+  --bundle-output "/tmp/mytemp.js" \
+  --assets-dest "$DEST"
 
-perl -pe 's/RE_NATAL_PLACEHOLDER\(\)/`cat index.ios.js`/ge' /tmp/mytemp.js > "$BUNDLE_FILE"
+cat /tmp/mytemp.js | \
+    perl -pe 's/(function\()\w+(\)\{RE_NATAL_PLACEHOLDER)/$1require$2/' | \
+    perl -pe 's/RE_NATAL_PLACEHOLDER\(\w+\)/`cat index.ios.js`/ge' > "$BUNDLE_FILE"
 
 if [[ ! $DEV && ! -f "$BUNDLE_FILE" ]]; then
   echo "error: File $BUNDLE_FILE does not exist. This must be a bug with" >&2

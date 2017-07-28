@@ -1,5 +1,5 @@
 (function (require){
-    RE_NATAL_PLACEHOLDER()
+   RE_NATAL_PLACEHOLDER()
 })(function (name) {
     var modules={'react-native': require('react-native'), 'react': require('react')};modules['./images/cljs.png']=require('./images/cljs.png');
     if (modules[name]){

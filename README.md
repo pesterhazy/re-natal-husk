@@ -13,7 +13,11 @@ Limitations
 
 ## Usage
 
+This builds a Release configuration build.
+
 ```
+npm install
+
 lein prod-build
 
 cp patch-react-native-xcode.sh ./node_modules/react-native/packager/react-native-xcode.sh 

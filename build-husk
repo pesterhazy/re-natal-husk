@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+react-native bundle --entry-file index.ios.shell.js --dev false --bundle-output main.jsbundle.tmp
+
+perl -pe 's/RE_NATAL_PLACEHOLDER\(\)/`cat index.ios.js`/ge' main.jsbundle.tmp > main.jsbundle

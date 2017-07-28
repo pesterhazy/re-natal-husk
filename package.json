@@ -1,0 +1,23 @@
+{
+	"name": "quax",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node_modules/react-native/packager/packager.sh --nonPersistent",
+		"test": "jest"
+	},
+	"dependencies": {
+		"babel-plugin-transform-es2015-block-scoping": "6.15.0",
+		"react": "16.0.0-alpha.6",
+		"react-native": "0.43.4"
+	},
+	"devDependencies": {
+		"babel-jest": "20.0.3",
+		"babel-preset-react-native": "2.1.0",
+		"jest": "20.0.4",
+		"react-test-renderer": "16.0.0-alpha.6"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
+}

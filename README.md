@@ -40,8 +40,7 @@ But this works
 
 ## Todo
 
-- [ ] Find a way to patch react-native/packager/react-native-xcode.sh automatically
-- [ ] Replace the /tmp/mytemp.js file with something more reliable
+- [ ] Find a way to patch react-native/packager/react-native-xcode.sh automatically. Currently this requires using an alternative script called husk-react-native-xcode.sh - but what if the original changes? Also this is a little annoying to set up....
 - [ ] Auto-generate index.ios.js.husk.js from .re-natal
 - [ ] upstream into re-natal
 

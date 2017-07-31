@@ -84,7 +84,7 @@ if [[ "$CONFIGURATION" = "Debug" && ! "$PLATFORM_NAME" == *simulator ]]; then
 fi
 
 BUNDLE_FILE="$DEST/main.jsbundle"
-INTERMEDIATE_FILE="/tmp/mytemp.js"
+INTERMEDIATE_FILE="$(mktemp)"
 
 $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
   --entry-file "${ENTRY_FILE}.husk.js" \
@@ -96,6 +96,7 @@ $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
 
 status=$?
 if [ $status -ne 0 ]; then
+    rm -f "$INTERMEDIATE_FILE"
     exit $status
 fi
 
@@ -103,8 +104,11 @@ perl -pe 's|RE_NATAL_PLACEHOLDER|"(function(require){\n\n".`cat index.ios.js`."\
 
 status=$?
 if [ $status -ne 0 ]; then
+    rm -f "$INTERMEDIATE_FILE"
     exit $status
 fi
+
+rm -f "$INTERMEDIATE_FILE"
 
 if [[ ! $DEV && ! -f "$BUNDLE_FILE" ]]; then
   echo "error: File $BUNDLE_FILE does not exist. This must be a bug with" >&2

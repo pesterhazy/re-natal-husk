@@ -44,6 +44,10 @@ But this works
 - [ ] Auto-generate index.ios.js.husk.js from .re-natal
 - [ ] upstream into re-natal
 
+## See also
+
+- http://austinbirch.co.uk/2017/07/28/clojurescript-and-react-native-bundling-for-release-with-advanced-optimisations.html
+
 ## License
 
 Copyright © 2017 Paulus Esterhazy

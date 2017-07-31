@@ -2,6 +2,8 @@
 
 Experiment to show how to use the "empty husk" bundle idea to build production bundles for re-natal
 
+For the problem this is intended to solve see [this repro-repo](https://github.com/jeaye/react-native-packager-bug).
+
 Feeds index.ios.js.husk.js into the packager, then injects the actual ClojureScript generated bundle.
 
 This avoids perennial issues with the React Native packager.

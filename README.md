@@ -22,9 +22,13 @@ npm install
 
 lein prod-build
 
-cp patch-react-native-xcode.sh ./node_modules/react-native/packager/react-native-xcode.sh 
-
 react-native run-ios --configuration Release
+```
+
+To see regular builds fail
+
+```
+./build-normal
 ```
 
 ## Todo

@@ -31,6 +31,13 @@ To see regular builds fail
 ./build-normal
 ```
 
+But this works
+
+```
+./build-husk
+```
+
+
 ## Todo
 
 - [ ] Find a way to patch react-native/packager/react-native-xcode.sh automatically

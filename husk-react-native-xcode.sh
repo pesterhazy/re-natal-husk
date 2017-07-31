@@ -31,7 +31,7 @@ case "$CONFIGURATION" in
 esac
 
 # Path to react-native folder inside node_modules
-REACT_NATIVE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REACT_NATIVE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/node_modules/react-native" && pwd)"
 
 # Xcode project file for React Native apps is located in ios/ subfolder
 cd "${REACT_NATIVE_DIR}"/../..
@@ -84,18 +84,27 @@ if [[ "$CONFIGURATION" = "Debug" && ! "$PLATFORM_NAME" == *simulator ]]; then
 fi
 
 BUNDLE_FILE="$DEST/main.jsbundle"
+INTERMEDIATE_FILE="/tmp/mytemp.js"
 
 $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
   --entry-file "${ENTRY_FILE}.husk.js" \
   --platform ios \
   --dev $DEV \
   --reset-cache \
-  --bundle-output "/tmp/mytemp.js" \
+  --bundle-output "$INTERMEDIATE_FILE" \
   --assets-dest "$DEST"
 
-cat /tmp/mytemp.js | \
-    perl -pe 's/(function\()\w+(\)\{RE_NATAL_PLACEHOLDER)/$1require$2/' | \
-    perl -pe 's/RE_NATAL_PLACEHOLDER\(\w+\)/`cat index.ios.js`/ge' > "$BUNDLE_FILE"
+status=$?
+if [ $status -ne 0 ]; then
+    exit $status
+fi
+
+perl -pe 's|RE_NATAL_PLACEHOLDER|"(function(require){\n\n".`cat index.ios.js`."\n\n})"|ge' < "$INTERMEDIATE_FILE" > "$BUNDLE_FILE"
+
+status=$?
+if [ $status -ne 0 ]; then
+    exit $status
+fi
 
 if [[ ! $DEV && ! -f "$BUNDLE_FILE" ]]; then
   echo "error: File $BUNDLE_FILE does not exist. This must be a bug with" >&2

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+react-native bundle --reset-cache --dev false --entry-file index.husk.js --bundle-output release2.jsbundle.tmp
+
+cat release2.jsbundle.tmp | \
+    perl -pe 's/(function\()\w+(\)\{RE_NATAL_PLACEHOLDER)/$1require$2/' | \
+    perl -pe 's/RE_NATAL_PLACEHOLDER\(\w+\)/`cat index.ios.js`/ge' > release2.jsbundle

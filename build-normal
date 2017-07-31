@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+react-native bundle --reset-cache --dev false --entry-file index.ios.js --bundle-output release.jsbundle

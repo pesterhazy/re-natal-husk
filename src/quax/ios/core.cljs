@@ -1,6 +1,7 @@
 (ns quax.ios.core
   (:require [reagent.core :as r :refer [atom]]
             [re-frame.core :refer [subscribe dispatch dispatch-sync]]
+            [quax.lots]
             [quax.events]
             [quax.subs]))
 
